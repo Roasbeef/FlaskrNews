@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block title %}Page Not Found{% endblock %}
+
+{% block css %}
+<style type="text/css">
+  h1, p{ text-align:center; }
+  h1{ font-size:64px; margin:75px 0 50px; }
+  p{ font-size:24px; margin:15px 0; }
+  body { margin: 0 auto; width:400px; }
+  
+</style>
+{% endblock %}
+
+{% block body %}
+<h1>Uh oh!</h1>
+<p>That page doesn't even exist.</p>
+<p>Why don't you just <a href="{{ url_for('frontend.index') }}">go back home</a>?</p>
+{% endblock %}

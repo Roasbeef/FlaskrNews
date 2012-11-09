@@ -1,0 +1,40 @@
+<div class="navbar navbar-fixed-top">
+    <div class="navbar-inner">
+        <a class="brand" href="/">DapperNews</a>
+        <ul class="nav">
+            <li class="divider-vertical"></li>
+            <li class="active"><a href="#">Hot</a></li>
+            <li class="divider-vertical"></li>
+            <li><a href="#">New</a></li>
+            <li class="divider-vertical"></li>
+            <li><a href="#submitModal" role="button" data-toggle="modal">Submit</a></li>
+            <div class="modal hide fade in" id="submitModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="false">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <div class="modal-body">
+                    {% include 'submit.html' %}
+                </div>
+            </div>
+        </ul>
+        <form class="navbar-search">
+            <input type="text" class="search-query" placeholder="Search" style="font-family: 'Josefin Sans'">
+        </form>
+        {% if session.get('username') is none %}
+        <ul class="nav pull-right">
+            <li><a href="{{ url_for('account.login') }}">Login</a></li>
+        </ul>
+        {% else %}
+        <ul class="nav pull-right">
+            <li class="divider-vertical"></li>
+            <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{ session.username }}({{ g.user.karma }})<b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                    <li><a href="#">Preferences</a></li>
+                    <li><a href="#">Profile</a></li>
+                    <li class="divider"></li>
+                    <li><a href="{{ url_for('account.logout') }}">LogOut</a></li>
+                </ul>
+            </li>
+        </ul>
+        {% endif %}
+    </div>
+</div>

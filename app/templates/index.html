@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block body %}
+{% include 'navbar.html' %}
+{% from "macros/_render_post.html" import render_post with context %}
+<div class="link_wrapper">
+    {% for post, votes in content %}
+        {{ render_post(post, loop.index, votes, page_number, last=loop.last) }}
+    {% endfor %}
+</div>
+
+{% endblock %}
+
+
+{% block js %}
+<script src="{{ url_for('static', filename='js/scroll_load.js') }}"></script>
+<script>
+$(function () {
+
+//    $("html, body").animate({ scrollTop: 0 }, 600);
+
+})
+</script>
+{% endblock %}

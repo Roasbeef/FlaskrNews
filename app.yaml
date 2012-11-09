@@ -1,0 +1,70 @@
+application: dappernews
+version: 1
+runtime: python
+api_version: 1
+
+
+# In production, uncomment line below.
+# default_expiration: "30d"
+
+
+skip_files:
+- ^(.*/)?app\.yaml
+- ^(.*/)?app\.yml
+- ^(.*/)?index\.yaml
+- ^(.*/)?index\.yml
+- ^(.*/)?#.*#
+- ^(.*/)?.*~
+- ^(.*/)?.*\.py[co]
+- ^(.*/)?.*/RCS/.*
+- ^(.*/)?\..*
+- ^(.*/)?tests$
+
+
+builtins:
+- appstats: on
+- remote_api: on
+- datastore_admin: on
+
+
+handlers:
+
+- url: /remote_api
+  script: $PYTHON_LIB/google/appengine/ext/remote_api/handler.py
+  login: admin
+
+- url: /favicon\.ico
+  mime_type: image/png
+  static_files: app/static/favicon.ico
+  upload: app/static/favicon.ico
+
+- url: /(robots\.txt|humans\.txt|crossdomain\.xml)
+  static_files: static/\1
+  upload: app/static/(robots\.txt|humans\.txt|crossdomain\.xml)
+
+- url: /img/(.*\.(gif|png|jpg))
+  static_files: static/img/\1
+  upload: app/static/img/(.*\.(gif|png|jpg))
+
+- url: /css/(.*\.css)
+  mime_type: text/css
+  static_files: app/static/css/\1
+  upload: app/static/css/(.*\.css)
+
+- url: /static/js/(.*\.js)
+  mime_type: text/javascript
+  static_files: app/static/js/\1
+  upload: app/static/js/(.*\.js)
+
+- url: /static
+  mime_type: text/javascript
+  static_files: app/static/
+  upload: app/static/
+
+- url: /(.*\.html)
+  mime_type: text/html
+  static_files: app/static/\1
+  upload: app/static/(.*\.html)
+
+- url: /.*
+  script: bootstrap.py

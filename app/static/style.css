@@ -1,0 +1,191 @@
+body {
+    /*background-image: url('furley_bg.png');*/
+    background-image: url('ricepaper2.png');
+    font-family: 'Josefin Sans';
+}
+
+*, input, button, select, textarea {
+    font-family: 'Josefin Sans';
+}
+
+.brand {
+    font-family: 'Dancing Script';
+}
+
+.nav {
+    font-family: 'Josefin Sans';
+}
+
+
+.link_wrapper {
+    margin: 0 auto;
+    width: 72%;
+    padding-top: 75px;
+}
+
+.badge {
+    padding: 2px 6px 1px;
+}
+
+.dropdown-menu {
+    font-size: 12px;
+    min-width: 100px;
+}
+
+#fat-menu {
+    right: 20px;
+}
+
+
+.link_wrapper .pts {
+    font-family: 'Josefin Sans';
+    margin-left: 12px;
+    font-size: 13px;
+    border-radius: 15px;
+    -webkit-border-radius: 15px;
+    -moz-border-radius: 15px;
+}
+
+[class^="icon-"] {
+    background-image: url("glyphicons-halflings.png");
+    cursor: pointer;
+}
+
+.headline {
+    font-size: 9px;
+    color: grey;
+    position: relative;
+    left: 26%;
+    bottom: 29px;
+    z-index: 200;
+}
+
+.comment.headline {
+    font-size: 9px;
+    color: grey;
+    position: relative;
+    left: 0;
+    bottom: 0;
+}
+
+.comment.stats {
+    display: block;
+    font-size: 9px;
+    position: relative;
+    left: 3px;
+    bottom: 9px;
+    width: 500px;
+}
+
+.headline a {
+    font-size: 13px;
+    color: black;
+    padding-right: 5px;
+}
+
+.stats {
+    display: block;
+    font-size: 9px;
+    position: relative;
+    left: 185px;
+    bottom: 38px;
+    width: 500px;
+}
+
+.stats a:last-child {
+    border-left: 1px solid;
+    padding-left: 3px;
+}
+
+
+.form-container {
+    margin-top: 12%;
+    margin: 0 auto;
+    width: 400px;
+    background: white;
+    box-shadow: 0px 0px 3px grey;
+    padding: 20px;
+    margin-top: 47px;
+    border-radius: 22px;
+}
+
+.form-container h1, .form-horizontal h1 {
+    font-family: 'Dancing Script';      
+    text-align: center; 
+    border-bottom: 1px solid gray; 
+    padding-bottom: 5px;  
+}
+
+.control-group {
+    margin-left: -76px;
+}
+
+.votes {
+    position: relative;
+    left: 18%;
+    bottom: 24px;
+}
+
+.votes .up {
+    position: absolute;
+    bottom: -11px;
+    left: 1px;
+}
+
+.votes .down {
+    position: absolute;
+    top: 8px;
+    left: 0.1px;
+}
+
+.modal {
+    width: 400px;
+    margin-left: -20%;
+}
+
+.modal-backdrop {
+    z-index: 900;
+}
+
+.comment {
+    font-size: 11px;
+    margin-bottom: 25px;
+}
+
+.comment_info {
+    margin-left: 4%;
+}
+
+.c_votes {
+    position: relative;
+}
+
+.c_votes .down {
+    position: absolute;
+    top: 6px;
+    left: .9%;
+}
+
+.c_votes .up {
+    position: absolute;
+    bottom: -12px;
+    left: 1%;
+}
+
+.c_body {
+    font-size: 10px;
+    margin-left: 4%;
+    margin-bottom: 1%;
+}
+
+.reply {
+    margin-left: 4%;
+}
+
+.alert {
+    position: relative;
+    top: 60px;
+    text-align: center;
+    width: 500px;
+    margin: 0 auto;
+}

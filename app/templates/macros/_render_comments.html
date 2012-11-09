@@ -1,0 +1,31 @@
+{% macro render_comments(comments) %}
+
+    {% for comment in comments %}
+    <div class="comment" style="margin-left:{{ comment.depth*3}}%">
+        <div class="c_votes">
+        <a href="/comment/"><i class="icon-chevron-up up" data-id="{{ comment.key.id() }}" style="display: {{ none if dir == '1'}}"></i></a>
+        <a href="/comment/"><i class="icon-chevron-down down" data-id="{{ comment.key.id() }}" style="display: {{ none if dir == '-1' }}"></i></a>
+        </div>
+        <span class="comment_info">
+            <a style="margin-right:.5%;"> {{ comment.author.get().username }} </a> {{ "  0 Points" if not comment.votes else comment.votes }} {{ comment.ago }} | <a href="{{ url_for('comment.view_comment', comment_id=comment.key.id()) }}"> link </a>
+        </span>
+        <p class="c_body"> {{ comment.comment_text }} </p>
+        {% if session.get('username') is not none %}
+        <button class="btn btn-mini reply" type="button">Reply</button>
+        {% endif %}
+
+        {% if g.user == comment.author.get() %}
+        <button class="btn btn-mini edit" type="button">Edit</button>
+        <form method="POST" action="{{ url_for('comment.delete_comment', comment_id= comment.key.id()) }}" style="display: inline">
+        <button class="btn btn-mini delete" type="submit">Delete</button>
+        </form>
+        {% endif %}
+    </div>
+
+    {% for child in comment.children %}
+        {{ render_comments([child]) }}
+    {% endfor %}
+    
+    {% endfor %}
+
+{% endmacro %}

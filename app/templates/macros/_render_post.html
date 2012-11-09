@@ -1,0 +1,41 @@
+{% macro render_post(post, i, voters, page_num, last=false,comments=none) %}
+{% if g.user %}
+    {% if g.user.key in voters %}
+    {% set dir = post.voters[voters.index(g.user.key)].direction %}
+    {% endif %}
+{% endif %}
+
+    <div class="link">
+        {% if i %}
+        <span class="badge badge-info">{{ i + (page_num * 10) }}</span>
+        {% endif %}
+        <button class="btn pts" type="button disabled" disabled="disabled">{{ post.votes }} Points</button>
+        <div class="votes">
+            <a href="/post/"><i class="icon-chevron-up up" data-id="{{ post.key.id() }}" style="display: {{ none if dir == '1'}}"></i></a>
+            <a href="/post/"><i class="icon-chevron-down down" data-id="{{ post.key.id() }}" style="display: {{ none if dir == '-1' }}"></i></a>
+        </div>
+        <span class="headline">
+            <a href="{{ post.link }}">{{ post.title }}</a>
+            ({{ post.link.split('/')[2].lstrip('www.') }})
+        </span>
+        <span class="stats">
+            Posted by <a href=#>{{ post.author.get().username }}</a> {{ post.ago }}
+            <a href="{{ url_for('post.view_post', post_id=post.key.id()) }}">{{ "discus this" if post.num_comments is none else post.num_comments ~ " Comments"}}</a>
+
+        </span>
+    </div>
+
+    {% if comments is not none %}
+    {% from 'macros/_render_comments.html' import render_comments with context %}
+    <form method="POST" action="/post/{{ post.key.id() }}/addcomment">
+        <textarea name="comment" style="width: 450px; height: 50px; position: relative; left: 2%;"></textarea>
+        <button type="submit" class="btn" style="display: block; margin-left: 14px;">Add Comment</button>
+    </form>
+    {{ render_comments(comments) }}
+    {% endif %}
+
+    {% if last %}
+    <span id="cur_info" style="display: none;" data-cur_string="{{ cur_string }}" data-page_num="{{ page_num }}" data-more_content="{{ more }}"></span>
+    {% endif %}
+
+{% endmacro %}

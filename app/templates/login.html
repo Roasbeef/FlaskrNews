@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block body %}
+{% include 'navbar.html' %}
+
+<div class="form-container">
+    <h1> Sign In </h1>
+    {% if error %}
+    <div class="alert alert-error">
+        <button type="button" class="close" data-dismiss="alert">×</button>
+        Invalid Credentials!
+    </div>
+    {% endif %}
+    <form class="form-horizontal" method="POST" action='/login'>
+        <div class="control-group">
+            <label class="control-label" for="inputUsername">Username</label>
+            <div class="controls">
+                <input name="username" type="text" id="inputUsername" placeholder="UserName">
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label" for="inputPassword">Password</label>
+            <div class="controls">
+                <input name="password" type="password" id="inputPassword" placeholder="Password">
+            </div>
+        </div>
+        <div class="control-group">
+            <div class="controls">
+                <label class="checkbox">
+                    <input type="checkbox"> Remember me
+                </label>
+                <button type="submit" class="btn">Sign in</button>
+                <a id="register" class="btn" href="#" style="margin-left: 70px">Register</a>
+            </div>
+        </div>
+    </form>
+</div>
+
+{% endblock %}
+
+{% block js %}
+<script src="{{ url_for('static', filename='js/validate.js') }}"></script>
+{% endblock %}
