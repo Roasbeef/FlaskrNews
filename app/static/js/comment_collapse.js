@@ -12,7 +12,7 @@
         self.parent().nextAll().each( function ( i, e ) {
             var current_offset = $(this).css('margin-left');
 
-            if ( current_offset > parent_offset && $(this).css('display') != 'none') {
+            if ( current_offset > parent_offset ) {
                 ( direction == 'up' ) ? $(this).slideUp() : $(this).slideDown();
             } else {
                 return false; 
