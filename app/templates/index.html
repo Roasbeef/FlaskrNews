@@ -1,7 +1,6 @@
 {% extends "base.html" %}
 
 {% block body %}
-{% include 'navbar.html' %}
 {% from "macros/_render_post.html" import render_post with context %}
 <div class="link_wrapper">
     {% for post, votes in content %}
