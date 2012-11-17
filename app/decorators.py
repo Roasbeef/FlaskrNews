@@ -1,12 +1,14 @@
 from functools import wraps
-from flask import session, request, redirect, url_for, abort
+from flask import (session, request, redirect, url_for, abort,
+                   flash)
 
 
 def login_required(f):
     @wraps(f)
     def decorated_function(*args, **kwargs):
         if session.get('username') is None:
-            return redirect(url_for('account.login'))
+            flash('You must be logged in to do that', category='error')
+            return redirect(url_for('account.login', after=request.url_root))
         return f(*args, **kwargs)
     return decorated_function
 

@@ -9,7 +9,7 @@ mod = Blueprint('account', __name__)
 
 
 @mod.route('/login', methods=['GET', 'POST'])
-def login():
+def login(after=None):
     error = False
 
     if request.method == 'POST':
@@ -18,7 +18,8 @@ def login():
         user = User.query(User.username == username).get()
         if user is not None and bcrypt.hashpw(password, user.pwhash) == user.pwhash:
             session['username'] = username
-            return redirect(url_for('frontend.index'))
+            next_url = after or url_for('frontend.index')
+            return redirect(next_url)
         else:
             error = True
 

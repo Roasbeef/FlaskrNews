@@ -11,6 +11,7 @@ adjust_sys_path()
 from app import create_app
 from werkzeug_debugger_appengine import get_debugged_app
 
+
 def main():
     app = create_app()
     # If we're on the local server, let's enable Flask debugging.

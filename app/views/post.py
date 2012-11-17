@@ -64,3 +64,20 @@ def vote(post_id):
 def all_posts():
 
     return redirect(url_for('frontend.index'))
+
+'''
+@mod.route('/', methods=['POST'])
+@login_required
+def submit_post():
+
+    if request.method == "POST":
+        title = request.form['title']
+        link = request.form['link']
+        desc = request.form['description']
+        user = g.user
+
+        p = Post()
+        p.add(title, link, desc, user.key)
+
+        return redirect(url_for('frontend.index'))
+'''

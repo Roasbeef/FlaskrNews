@@ -27,4 +27,5 @@ def create_app():
     app.register_blueprint(account.mod)
     app.register_blueprint(post.mod)
     app.register_blueprint(comment.mod)
+
     return app

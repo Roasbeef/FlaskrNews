@@ -14,7 +14,7 @@ mod = Blueprint('frontend', __name__)
 @mod.route('/', methods=['GET', 'POST'])
 def index():
 
-    page_num = 0 if request.values.get('page_num') is None else request.values.get('page_num')
+    page_num = request.values.get('page_num', 0)
     cur_string = request.values.get('cur_string')
 
     if request.values.get('sort') == 'new':
@@ -23,7 +23,8 @@ def index():
         content = api.get_posts(cur_string=cur_string)
 
     return render_template('index.html', content=content, page_number=int(page_num),
-                           cur_string=g.page_cur.urlsafe(), more=str(g.is_more_content).lower())
+                           cur_string=g.page_cur.urlsafe() if g.page_cur else "",
+                           more=str(g.is_more_content).lower())
 
 
 @mod.route('/submit', methods=['POST'])

@@ -58,10 +58,10 @@
                  .parent().siblings().find('i').fadeIn('fast');
 
             $.post( $SCRIPT_ROOT + '/post/_vote/' + id, { direction: direc }).done( function () {
-                var score_button = $self.closest('.link').find('button'),
-                    score        = parseInt(score_button.text());
+                var $score_button = $self.closest('.link').find('button'),
+                    score        = parseInt($score_button.text());
 
-                score_button.text( (score + direc) + ' Points');
+                $score_button.text( (score + direc) + ' Points');
 
             });
     }
