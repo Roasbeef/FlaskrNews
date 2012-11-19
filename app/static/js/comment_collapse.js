@@ -41,7 +41,7 @@
 
         $self.text('[-]').addClass('collapse_handle').removeClass('expand_handle');
         //show comment body and buttons, reset margin
-        $self.parent().css('margin-bottom',25).find('.comment_info').nextAll().show();
+        $self.parent().css('margin-bottom',10).find('.comment_info').nextAll().show();
         //show votes
         $self.prev().show();
 
