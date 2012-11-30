@@ -2,27 +2,23 @@ from datetime import datetime, timedelta
 
 
 def time_ago(date):
-
-    if date is None:
-        return
-
-    diff = datetime.now() - date
-    delta = "a few moments ago"
-
-    if diff.days:
-        years = diff.days / 365
-        if years:
-            delta = "%s years ago" % str(years)
-        elif (diff.days / 30):
-            delta = "%s months ago" % str(diff.days / 30)
-        elif (diff.days / 7):
-            delta = "%s weeks ago" % str(diff.days / 7)
-        else:
-            delta = "%s days ago" % str(diff.days)
+    # http://stackoverflow.com/a/5164027/176978
+    diff = datetime.utcnow() - date
+    if diff.days > 7 or diff.days < 0:
+        return date.strftime('%A %B %d, %Y')
+    elif diff.days == 1:
+        return '1 day ago'
+    elif diff.days > 1:
+        return '{0} days ago'.format(diff.days)
+    elif diff.seconds <= 1:
+        return 'just now'
+    elif diff.seconds < 60:
+        return '{0} seconds ago'.format(diff.seconds)
+    elif diff.seconds < 120:
+        return '1 minute ago'
+    elif diff.seconds < 3600:
+        return '{0} minutes ago'.format(diff.seconds / 60)
+    elif diff.seconds < 7200:
+        return '1 hour ago'
     else:
-        if (diff.seconds / 3600):
-            delta = "%s hours ago" % str(diff.seconds / 3600)
-        elif (diff.seconds / 60):
-            delta = "%s minutes ago" % str(diff.seconds / 60)
-
-    return delta
+        return '{0} hours ago'.format(diff.seconds / 3600)
