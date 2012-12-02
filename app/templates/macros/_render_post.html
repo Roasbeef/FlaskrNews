@@ -1,7 +1,7 @@
 {% macro render_post(post, i, voters, page_num, last=false,comments=none) %}
 {% if g.user %}
     {% if g.user.key in voters %}
-    {% set dir = post.voters[voters.index(g.user.key)].direction %}
+        {% set dir = post.voters[voters.index(g.user.key)].direction %}
     {% endif %}
 {% endif %}
 
@@ -16,7 +16,7 @@
         </div>
         <span class="headline">
             <a href="{{ post.link }}">{{ post.title }}</a>
-            ({{ post.link.split('/')[2].lstrip('www.') }})
+            ({{ post.link.split('/')[2].lstrip('www.') if post.link.startswith(('http://','https://')) else post.link }})
         </span>
         <span class="stats">
             Posted by <a href=#>{{ post.author.get().username }}</a> {{ post.ago }}
