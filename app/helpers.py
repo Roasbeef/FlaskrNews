@@ -3,6 +3,10 @@ from datetime import datetime, timedelta
 
 def time_ago(date):
     # http://stackoverflow.com/a/5164027/176978
+    #work around for computed property
+    if date is None:
+        return
+
     diff = datetime.utcnow() - date
     if diff.days > 7 or diff.days < 0:
         return date.strftime('%A %B %d, %Y')
