@@ -5,31 +5,23 @@ from models.post import Post
 #from models.user import User
 from models.comment import Comment
 
-from flask import g, abort
+from flask import abort
 
 
 @get_or_404
-def get_posts(sort=None, cur_string=None, curs=None):
+def get_posts(sort_by, cur_string):
 
-    if cur_string is not None:
-        curs = Cursor(urlsafe=cur_string)
+    curs = Cursor(urlsafe=cur_string) if cur_string is not None else None
 
     try:
-        if sort == 'new':
-            posts, next_cur, more = Post.query().order(-Post.date_created).fetch_page(10, start_cursor=curs)
-            content = [(post, map(lambda x: x.voter_id, post.voters))
-                       for post in posts]
-        else:
-            posts, next_cur, more = Post.query().order(-Post.hot_score).fetch_page(10, start_cursor=curs)
-            content = [(post, map(lambda x: x.voter_id, post.voters))
-                       for post in posts]
+        sort_attr = getattr(Post, sort_by)
+        posts, next_cur, more = Post.query().order(-sort_attr).fetch_page(10, start_cursor=curs)
+        content = [(post, map(lambda x: x.voter_id, post.voters))
+                   for post in posts]
     except AttributeError:
         abort(404)
 
-    g.page_cur = next_cur
-    g.is_more_content = more
-
-    return content
+    return content, next_cur, more
 
 
 @get_or_404
