@@ -20,7 +20,7 @@ def index():
     content, page_cur, more_content = api.get_posts(order, db_cur_string)
 
     return render_template('index.html', content=content, page_number=int(page_num),
-                           cur_string=page_cur if page_cur else "",
+                           cur_string=page_cur.urlsafe() if page_cur else "",
                            more=str(more_content).lower())
 
 
