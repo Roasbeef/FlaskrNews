@@ -43,7 +43,12 @@
             post: post_id,
             author: "x"
           }, function(data) {
-            return console.log(data);
+            var $new_comment, container_width, parent_width;
+            $new_comment = $(data);
+            container_width = $('.link_wrapper').width();
+            parent_width = Math.ceil((parseInt($container.css('margin-left')) / container_width) * 100);
+            $self.closest('form#change').remove();
+            return $new_comment.hide().css('margin-left', "" + (parent_width + 3) + "%").insertAfter($container).fadeIn('slow');
           });
         });
       });

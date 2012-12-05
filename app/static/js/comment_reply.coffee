@@ -37,7 +37,13 @@
        .done ->
          #get most recent comment to display
          $.get "/comment/_newest", post: post_id, author: "x", (data) ->
-           console.log(data)
+           $new_comment    = $(data)
+           container_width = $('.link_wrapper').width()
+           #calculate percentage offset
+           parent_width    = Math.ceil( ( parseInt( $container.css('margin-left') ) / container_width ) * 100 )
+           $self.closest('form#change').remove()
+           $new_comment.hide().css('margin-left', "#{parent_width + 3}%").insertAfter($container).fadeIn('slow')
+
 
   $edit_button.on 'click', (e) ->
     $self         = $(this)
