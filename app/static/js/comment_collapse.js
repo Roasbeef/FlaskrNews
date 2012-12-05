@@ -16,9 +16,9 @@
         current_offset = $(comment).css('margin-left');
         if (current_offset > parent_offset) {
           if (direction === 'up') {
-            $(comment).slideUp();
+            $(comment).slideUp('fast');
           } else {
-            $(comment).slideDown();
+            $(comment).slideDown('fast');
           }
         } else {
           return false;

@@ -13,7 +13,7 @@
       current_offset = $(comment).css('margin-left')
 
       if current_offset > parent_offset
-        if direction is 'up' then $(comment).slideUp() else $(comment).slideDown()
+        if direction is 'up' then $(comment).slideUp('fast') else $(comment).slideDown('fast')
       else
         return false
 
