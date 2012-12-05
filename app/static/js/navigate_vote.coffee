@@ -1,6 +1,6 @@
 (($) ->
   
-  $navLinks = $('.nav:eq(0) > li').not('divider-vertical')[0...2]
+  $navLinks = $('.nav:eq(0) > li').not('.divider-vertical')[0...2]
   $links_container = $('.link_wrapper')
 
   isLoggedIn = -> $('.nav.pull-right li.dropdown').length
@@ -38,19 +38,22 @@
 
     # remove active from all siblings, add active to clicked
     $self.siblings().not('.divider-vertical').removeClass('active')
-         .end().addClass('active')
+    $self.addClass('active')
 
-  $navLinks[0...2].on 'click', (e) ->
+  $navLinks.on 'click', (e) ->
     url = if $(this).text().toLowerCase() is 'new' then '/?sort=new' else '/'
     $('html, body').animate scrollTop: 0, 600
 
     # fadeout container and load in new posts
     $links_container.fadeOut 'slow', ->
-      $.when( $links_container.load "#{url} .link_wraper > " )
+      $.when( $links_container.load "#{url} .link_wrapper > " )
        .then ->
-            $link_container.fadeIn 'slow', ->
+            $links_container.fadeIn 'slow', ->
               attachVotes() if isLoggedIn()
+              return
+            return
   
   #kick it all off
   attachVotes() if isLoggedIn()
+  return
 )(jQuery)

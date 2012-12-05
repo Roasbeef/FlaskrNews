@@ -3,7 +3,7 @@
 
   (function($) {
     var $links_container, $navLinks, attachVotes, isLoggedIn, vote;
-    $navLinks = $('.nav:eq(0) > li').not('divider-vertical').slice(0, 2);
+    $navLinks = $('.nav:eq(0) > li').not('.divider-vertical').slice(0, 2);
     $links_container = $('.link_wrapper');
     isLoggedIn = function() {
       return $('.nav.pull-right li.dropdown').length;
@@ -41,26 +41,27 @@
       var $self;
       e.preventDefault();
       $self = $(this);
-      return $self.siblings().not('.divider-vertical').removeClass('active').end().addClass('active');
+      $self.siblings().not('.divider-vertical').removeClass('active');
+      return $self.addClass('active');
     });
-    $navLinks.slice(0, 2).on('click', function(e) {
+    $navLinks.on('click', function(e) {
       var url;
       url = $(this).text().toLowerCase() === 'new' ? '/?sort=new' : '/';
       $('html, body').animate({
         scrollTop: 0
       }, 600);
       return $links_container.fadeOut('slow', function() {
-        return $.when($links_container.load("" + url + " .link_wraper > ")).then(function() {
-          return $link_container.fadeIn('slow', function() {
+        return $.when($links_container.load("" + url + " .link_wrapper > ")).then(function() {
+          $links_container.fadeIn('slow', function() {
             if (isLoggedIn()) {
-              return attachVotes();
+              attachVotes();
             }
           });
         });
       });
     });
     if (isLoggedIn()) {
-      return attachVotes();
+      attachVotes();
     }
   })(jQuery);
 
