@@ -12,6 +12,12 @@ indexes:
 
 - kind: Comment
   properties:
+  - name: author
+  - name: date_created
+    direction: desc
+
+- kind: Comment
+  properties:
   - name: parent
   - name: post
   - name: votes
