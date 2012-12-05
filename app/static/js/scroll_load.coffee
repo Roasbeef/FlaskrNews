@@ -18,23 +18,15 @@
    $new_posts.load "#{url} .link_wrapper > ",
      cur_string: cursor_string, page_num: page_num, sort: if wantsHot then 'hot' else 'new',
      () ->
-       console.log $new_posts
        $new_posts.children().hide().appendTo('.link_wrapper').fadeIn(speed)
-       console.log $cur_info
 
-  past_point = false
 
-  $(window).on 'scroll', () ->
-    doc_height  = $(document).height()
-    scroll_pos  = $(@).scrollTop()
-    load_point  = doc_height / 4
+ $(window).on 'scroll', () ->
 
-    unless past_point
-      if scroll_pos > load_point
-        past_point = true
-        console.log 'try'
-        $.when( scrollLoad() ).then () ->
-          past_point = false
-          console.log 'good loop'
+   if $(@).scrollTop() == $(document).height() - $(@).height()
+     if scrollTimeout
+       clearTimeout(scrollTimeout)
+     
+     scrollTimeout = setTimeout(scrollLoad, 250)
 
 )(jQuery)

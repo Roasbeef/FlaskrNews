@@ -2,7 +2,7 @@
 (function() {
 
   (function($) {
-    var navLinks, past_point, scrollLoad;
+    var navLinks, scrollLoad;
     navLinks = $('.nav:eq(0) > li').not('.divider-vertical').slice(0, 2);
     scrollLoad = function() {
       var $cur_info, $new_posts, cursor_string, more_to_load, page_num, speed, url, wantsHot;
@@ -22,26 +22,16 @@
         page_num: page_num,
         sort: wantsHot ? 'hot' : 'new'
       }, function() {
-        console.log($new_posts);
-        $new_posts.children().hide().appendTo('.link_wrapper').fadeIn(speed);
-        return console.log($cur_info);
+        return $new_posts.children().hide().appendTo('.link_wrapper').fadeIn(speed);
       });
     };
-    past_point = false;
     return $(window).on('scroll', function() {
-      var doc_height, load_point, scroll_pos;
-      doc_height = $(document).height();
-      scroll_pos = $(this).scrollTop();
-      load_point = doc_height / 4;
-      if (!past_point) {
-        if (scroll_pos > load_point) {
-          past_point = true;
-          console.log('try');
-          return $.when(scrollLoad()).then(function() {
-            past_point = false;
-            return console.log('good loop');
-          });
+      var scrollTimeout;
+      if ($(this).scrollTop() === $(document).height() - $(this).height()) {
+        if (scrollTimeout) {
+          clearTimeout(scrollTimeout);
         }
+        return scrollTimeout = setTimeout(scrollLoad, 250);
       }
     });
   })(jQuery);
