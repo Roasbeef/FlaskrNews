@@ -60,18 +60,15 @@ def vote(post_id):
     return jsonify(result='ok')
 
 
-@mod.route('/')
+@mod.route('/', methods=['GET', 'POST'])
 @login_required
-def all_posts():
-
-    return redirect(url_for('frontend.index'))
-
-'''
-@mod.route('/', methods=['POST'])
-@login_required
-def submit_post():
+def view_or_submit():
 
     if request.method == "POST":
+        if not all(v for k, v in request.form.items() if k != 'description'):
+            flash('Submission must have a title and link', category='error')
+            return redirect(url_for('frontend.index'))
+
         title = request.form['title']
         link = request.form['link']
         desc = request.form['description']
@@ -79,6 +76,6 @@ def submit_post():
 
         p = Post()
         p.add(title, link, desc, user.key)
+        flash('Post submitted successfully!', category='success')
 
-        return redirect(url_for('frontend.index'))
-'''
+    return redirect(url_for('frontend.index'))
