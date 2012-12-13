@@ -71,7 +71,8 @@ def delete_post_comment(comment_id):
     origin_post = comment.post.get()
     origin_post.num_comments -= 1
     origin_post.put()
-    comment.key.delete()
+    #will now display [deleted] to keep comment chain intact
+    comment.partial_delete()
 
     return origin_post.key.id()
 
