@@ -1,10 +1,11 @@
+{% set post,votes = content %}
+{% block title %} {{ post.title }} {% endblock %}
 {% extends "base.html" %}
 
 {% block body %}
 {% from "macros/_render_post.html" import render_post with context %}
 
 <div class="link_wrapper">
-{% set post,votes = content %}
     {{ render_post(post=post,voters=votes,comments=comments) }}
 </div>
 

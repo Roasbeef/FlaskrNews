@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <title> DapperNews </title>
+  <title> {% block title %} {% endblock %} </title>
   <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap-responsive.min.css') }}">
   <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap.min.css') }}">
   <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
