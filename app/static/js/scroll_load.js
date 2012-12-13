@@ -31,7 +31,7 @@
         if (scrollTimeout) {
           clearTimeout(scrollTimeout);
         }
-        return scrollTimeout = setTimeout(scrollLoad, 250);
+        return scrollTimeout = setTimeout(scrollLoad, 200);
       }
     });
   })(jQuery);

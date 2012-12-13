@@ -27,6 +27,6 @@
      if scrollTimeout
        clearTimeout(scrollTimeout)
      
-     scrollTimeout = setTimeout(scrollLoad, 250)
+     scrollTimeout = setTimeout(scrollLoad, 200)
 
 )(jQuery)
