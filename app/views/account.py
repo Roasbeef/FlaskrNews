@@ -1,5 +1,6 @@
 from flask import (Blueprint, url_for, render_template,
-                   request, redirect, session, jsonify)
+                   request, redirect, session, jsonify,
+                   flash)
 
 from ..models.user import User
 
@@ -9,8 +10,9 @@ mod = Blueprint('account', __name__)
 
 
 @mod.route('/login', methods=['GET', 'POST'])
-def login(after=None):
+def login():
     error = False
+    next_url = request.args.get('after') if request.args.get('after') is not None else url_for('frontend.index')
 
     if request.method == 'POST':
         username = request.form['username']
@@ -18,12 +20,13 @@ def login(after=None):
         user = User.query(User.username == username).get()
         if user is not None and bcrypt.hashpw(password, user.pwhash) == user.pwhash:
             session['username'] = username
-            next_url = after or url_for('frontend.index')
+            next_url = request.args.get('after')
+            flash('Successfully logged in!', category='success')
             return redirect(next_url)
         else:
             error = True
 
-    return render_template('login.html', error=error)
+    return render_template('login.html', error=error, next_url=next_url)
 
 
 @mod.route('/register', methods=['GET', 'POST'])
@@ -45,6 +48,7 @@ def register():
 @mod.route('/logout')
 def logout():
     session.pop('username', None)
+    flash('Logged out successfully', category='success')
     return redirect(url_for('frontend.index'))
 
 

@@ -10,7 +10,7 @@
         Invalid Credentials!
     </div>
     {% endif %}
-    <form class="form-horizontal" method="POST" action='/login'>
+    <form class="form-horizontal" method="POST" action='{{'/login?after=' + next_url}}'>
         <div class="control-group">
             <label class="control-label" for="inputUsername">Username</label>
             <div class="controls">

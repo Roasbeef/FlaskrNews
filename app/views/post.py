@@ -10,7 +10,7 @@ from app import api
 mod = Blueprint('post', __name__, url_prefix='/post')
 
 
-@mod.route('/<int:post_id>', methods=['GET'])
+@mod.route('/<int:post_id>/', methods=['GET'])
 def view_post(post_id):
     post = api.get_single_post(post_id)
     comments = api.get_post_comments(post[0])
@@ -18,17 +18,18 @@ def view_post(post_id):
     return render_template('post.html', content=post, comments=comments)
 
 
-@mod.route("/<int:post_id>/addcomment", methods=["POST"])
-@mod.route("/<int:post_id>/<int:parent_id>/reply", methods=["POST"])
+@mod.route("/<int:post_id>/addcomment", methods=['GET', 'POST'])
+@mod.route("/<int:post_id>/<int:parent_id>/reply", methods=['GET', 'POST'])
 @login_required
 def add_comment(post_id, parent_id=None):
 
-    comment_text = request.form['comment']
-    if comment_text:
-        flash('Comment added successfully', category='success')
-        api.add_comment(post_id, comment_text, g.user.key, parent_id)
-    else:
-        flash('Comment cannot be blank.', category='error')
+    if request.method == 'POST':
+        comment_text = request.form['comment']
+        if comment_text:
+            flash('Comment added successfully', category='success')
+            api.add_comment(post_id, comment_text, g.user.key, parent_id)
+        else:
+            flash('Comment cannot be blank.', category='error')
 
     return redirect(url_for('post.view_post', post_id=post_id))
 
