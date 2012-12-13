@@ -1,5 +1,5 @@
 from flask import (Blueprint, url_for, render_template,
-                   request, redirect, g)
+                   request, redirect, g, flash)
 
 from ..models.post import Post
 from ..decorators import login_required
@@ -29,6 +29,10 @@ def index():
 def submit():
 
     if request.method == "POST":
+        if not all(v for k, v in request.form.items() if k != 'descripton'):
+            flash('Submission must have a title and link', category='error')
+            return redirect(url_for('frontend.index'))
+
         title = request.form['title']
         link = request.form['link']
         desc = request.form['description']
